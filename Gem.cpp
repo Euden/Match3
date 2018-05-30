@@ -1,10 +1,13 @@
 #include "Gem.h"
+#include <math.h>
 
-Gem::Gem(int x, int y, King::Engine::Texture type)
-	: posX(x), posY(y), Type(type)
+Gem::Gem(int x, int y)
+	: posX(x), posY(y)
 {
 	posX = posX * 35;
 	posY = posY * 35;
+
+	Type = King::Engine::Texture(rand() % 5 + 1);
 }
 
 Gem::~Gem()

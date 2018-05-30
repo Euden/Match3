@@ -2,6 +2,7 @@
 
 #include <king/Engine.h>
 #include <king/Updater.h>
+#include <iostream>
 
 #include "Grid.h"
 
@@ -18,14 +19,14 @@ public:
 	}
 
 	void Start() {
-		grid = Grid();
-		grid.GenerateGrid(4, 4);
+		grid = std::make_shared<Grid>(Grid());
+		grid->GenerateGrid(8, 8);
 
 		mEngine.Start(*this);
 	}
 
 	void Update() {
-		mEngine.Render(King::Engine::TEXTURE_GREEN, 650.0f, 100.0f);
+		/*mEngine.Render(King::Engine::TEXTURE_GREEN, 650.0f, 100.0f);
 		mEngine.Render(King::Engine::TEXTURE_RED, 100.0f, 450.0f);
 		mEngine.Render(King::Engine::TEXTURE_BLUE, 650.0f, 450.0f);
 
@@ -44,13 +45,14 @@ public:
 		mEngine.Render(King::Engine::TEXTURE_YELLOW, mYellowDiamondX, mYellowDiamondY);
 		mEngine.Write("Click to", mYellowDiamondX, mYellowDiamondY + 40.0f);
 		mEngine.Write("move me!", mYellowDiamondX, mYellowDiamondY + 70.0f);
-
-		grid.DrawField(mEngine);
+*/
+		grid->DrawField(mEngine);
+		grid->gemAt(5, 5).get()->Type = King::Engine::Texture(rand() % 6);
 	}
 
 private:
 	King::Engine mEngine;
-	Grid grid;
+	std::shared_ptr<Grid> grid;
 	float mRotation;
 	float mYellowDiamondX;
 	float mYellowDiamondY;
