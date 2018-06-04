@@ -5,7 +5,8 @@
 #include <iostream>
 
 #include "Grid.h"
-
+#include<stdlib.h>
+#include <time.h>
 //**********************************************************************
 
 class ExampleGame : public King::Updater {
@@ -19,6 +20,7 @@ public:
 	}
 
 	void Start() {
+		srand(time(NULL));
 		grid = std::make_shared<Grid>(Grid());
 		grid->GenerateGrid(8, 8);
 
@@ -38,16 +40,19 @@ public:
 		mRotation += mEngine.GetLastFrameSeconds();
 		mEngine.Write(text, mEngine.GetWidth() / 2.0f, mEngine.GetHeight() / 2.0f, mRotation * 2.5f);
 
-		if (mEngine.GetMouseButtonDown()) {
-			mYellowDiamondX = mEngine.GetMouseX();
-			mYellowDiamondY = mEngine.GetMouseY();
-		}
+		
 		mEngine.Render(King::Engine::TEXTURE_YELLOW, mYellowDiamondX, mYellowDiamondY);
 		mEngine.Write("Click to", mYellowDiamondX, mYellowDiamondY + 40.0f);
 		mEngine.Write("move me!", mYellowDiamondX, mYellowDiamondY + 70.0f);
 */
+		grid->Update(mEngine);
 		grid->DrawField(mEngine);
-		grid->gemAt(5, 5).get()->Type = King::Engine::Texture(rand() % 6);
+
+		if (grid->isMatch(2, 2))
+		{
+			std::cout << "match found" << std::endl;
+		}
+		//grid->gemAt(5, 5).get()->Type = King::Engine::Texture(rand() % 6);
 	}
 
 private:
